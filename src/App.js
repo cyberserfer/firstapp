@@ -1,52 +1,55 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 
-/* var MyInfo = React.createClass({
-  getDefaultProps : function() {
-    return {
-      "name" : "Paul Buss",
-      "avatar_url" : "https://avatars2.githubusercontent.com/u/22548275?v=4",
-      "company" : "NM"
-    }
-  }
-});
-*/
+class App extends React.Component {
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {name: "Paul Buss"};
-    this.state = {avatar_url: 'https://avatars2.githubusercontent.com/u/22548275?v=4'};
-    this.state = {company: 'NM'};
-  };
+  const Card = (props) => {
+  	return (
+    	<div style={{margin: '1em'}}>
+      	<img width="75" src={props.avatar_url} />
+        <div style={{display: 'inline-block', marginleft: 10}}>
+        	<div style={{fontSize: '1.25em', fontWeight: 'bold'}}>
+          {props.name}
+          </div>
+        	<div>{props.company}</div>
+        </div>
+      </div>
+    );
+  }
+
+let data = [
+	{	name: "Paul Buss",
+  	avatar_url: "https://avatars2.githubusercontent.com/u/22548275?v=4",
+    company: "NM" },
+  {	name: "Cary Wolff",
+  	avatar_url: "https://avatars3.githubusercontent.com/u/9284960?v=4",
+    company: "NotHere" },
+];
+
+  const CardList = (props) => {
+    return (
+        	   {props.cards.map(card => <Card {...card} />)};
+    );
+  }
 
   render() {
     return (
       <div>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-      <div>
-          <div style={{margin: '1em'}}>
-        	  <img width="75" src= {this.props.avatar_url} alt=""/>
-            <div style={{display: 'inline-block', marginleft: 10}}>
-            	<div style={{fontSize: '1.25em', fontWeight: 'bold'}}>
-              {this.props.name}
-              </div>
-            	<div>{this.props.company}</div>
-            </div>
-          </div>
-      </div>
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Welcome to React</h1>
+          </header>
+          <p className="App-intro">
+            To get started, edit <code>src/App.js</code> and save to reload.
+          </p>
+        </div>
+        <div>
+            <CardList card={data} />
+        </div>
       </div>
     );
   }
 }
-
-export default App;
