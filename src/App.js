@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// moved the Card outside
 const Card = props => {
     return (
         <div style={{ margin: '1em' }}>
@@ -14,6 +15,7 @@ const Card = props => {
     );
 };
 
+//No components inside class
 export default class App extends Component {
     state = {
         data: [
@@ -29,6 +31,9 @@ export default class App extends Component {
             }
         ]
     };
+    // CardList is a method on the class
+    // moved data to state
+    // return calls Card component and then maps the data in
     CardList() {
         const { data } = this.state;
         return data.map(item => <Card avatar_url={item.avatar_url} name={item.name} company={item.company} />);
