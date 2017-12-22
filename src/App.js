@@ -1,55 +1,52 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends React.Component {
-
-  const Card = (props) => {
-  	return (
-    	<div style={{margin: '1em'}}>
-      	<img width="75" src={props.avatar_url} />
-        <div style={{display: 'inline-block', marginleft: 10}}>
-        	<div style={{fontSize: '1.25em', fontWeight: 'bold'}}>
-          {props.name}
-          </div>
-        	<div>{props.company}</div>
-        </div>
-      </div>
-    );
-  }
-
-let data = [
-	{	name: "Paul Buss",
-  	avatar_url: "https://avatars2.githubusercontent.com/u/22548275?v=4",
-    company: "NM" },
-  {	name: "Cary Wolff",
-  	avatar_url: "https://avatars3.githubusercontent.com/u/9284960?v=4",
-    company: "NotHere" },
-];
-
-  const CardList = (props) => {
+const Card = props => {
     return (
-        	   {props.cards.map(card => <Card {...card} />)};
+        <div style={{ margin: '1em' }}>
+            <img width="75px" alt={props.name} src={props.avatar_url} />
+            <div style={{ display: 'inline-block', marginleft: 10 }}>
+                <div style={{ fontSize: '1.25em', fontWeight: 'bold' }}>{props.name}</div>
+                <div>{props.company}</div>
+            </div>
+        </div>
     );
-  }
+};
 
-  render() {
-    return (
-      <div>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-        </div>
-        <div>
-            <CardList card={data} />
-        </div>
-      </div>
-    );
-  }
+export default class App extends Component {
+    state = {
+        data: [
+            {
+                name: 'Paul Buss',
+                avatar_url: 'https://avatars2.githubusercontent.com/u/22548275?v=4',
+                company: 'Northwestern Mutual'
+            },
+            {
+                name: 'Cary Wolff',
+                avatar_url: 'https://avatars3.githubusercontent.com/u/9284960?v=4',
+                company: 'Swarming Technology'
+            }
+        ]
+    };
+    CardList() {
+        const { data } = this.state;
+        return data.map(item => <Card avatar_url={item.avatar_url} name={item.name} company={item.company} />);
+    }
+    render() {
+        return (
+            <div>
+                <div className="App">
+                    <header className="App-header">
+                        <img src={logo} className="App-logo" alt="logo" />
+                        <h1 className="App-title">Welcome to React</h1>
+                    </header>
+                    <p className="App-intro">
+                        To get started, edit <code>src/App.js</code> and save to reload.
+                    </p>
+                </div>
+                <div>{this.CardList()}</div>
+            </div>
+        );
+    }
 }
